@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html>
   <body>
-    <h1>Welcome to COMP367</h1>
+    <h1 id="msg">Welcome to COMP367</h1>
+
+    <script>
+      const name = "Niloofar";  // <-- put your name here
+      const hour = new Date().getHours();
+      const greeting = (hour < 12) ? "Good morning" : "Good afternoon";
+      document.getElementById("msg").textContent =
+        `${greeting}, ${name}, Welcome to COMP367`;
+    </script>
   </body>
 </html>
