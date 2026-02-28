@@ -1,23 +1,27 @@
 pipeline {
-  agent any
+    agent any
 
-  stages {
-    stage('Checkout') {
-      steps {
-        checkout scm
-      }
+    tools {
+        maven 'Maven'
     }
 
-    stage('Build') {
-      steps {
-        bat 'mvn -B clean package'
-      }
-    }
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
 
-    stage('Archive') {
-      steps {
-        archiveArtifacts artifacts: 'target/*.war', fingerprint: true
-      }
+        stage('Build') {
+            steps {
+                bat 'mvn -B clean package'
+            }
+        }
+
+        stage('Archive') {
+            steps {
+                archiveArtifacts artifacts: 'target/*.war', fingerprint: true
+            }
+        }
     }
-  }
 }
