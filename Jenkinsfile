@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    options {
+        skipDefaultCheckout(true)
+    }
+
     environment {
         DOCKER_HUB_USERNAME = 'niloofarkoochakianjazi'
         IMAGE_NAME = 'niloofarkoochakianjazi/comp367-webapp:lab3'
@@ -37,12 +41,6 @@ pipeline {
             steps {
                 sh 'docker push "$IMAGE_NAME"'
             }
-        }
-    }
-
-    post {
-        always {
-            sh 'docker logout || true'
         }
     }
 }
