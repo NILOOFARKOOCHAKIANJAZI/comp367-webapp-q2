@@ -23,27 +23,27 @@ pipeline {
 
         stage('Build maven project') {
             steps {
-                sh 'mvn clean package -DskipTests'
+                bat 'mvn clean package -DskipTests'
             }
         }
 
         stage('Docker login') {
             steps {
                 withCredentials([string(credentialsId: 'CredentialID_DockerHubPWD', variable: 'DOCKER_HUB_TOKEN')]) {
-                    sh 'echo "$DOCKER_HUB_TOKEN" | docker login -u "$DOCKER_HUB_USERNAME" --password-stdin'
+                    bat 'echo %DOCKER_HUB_TOKEN% | docker login -u %DOCKER_HUB_USERNAME% --password-stdin'
                 }
             }
         }
 
         stage('Docker build') {
             steps {
-                sh 'docker build -t "$IMAGE_NAME" .'
+                bat 'docker build -t "%IMAGE_NAME%" .'
             }
         }
 
         stage('Docker push') {
             steps {
-                sh 'docker push "$IMAGE_NAME"'
+                bat 'docker push "%IMAGE_NAME%"'
             }
         }
     }
