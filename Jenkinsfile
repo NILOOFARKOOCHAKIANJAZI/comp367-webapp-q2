@@ -1,8 +1,6 @@
 pipeline {
     agent any
 
-   
-
     environment {
         DOCKER_HUB_USERNAME = 'niloofarkoochakianjazi'
         IMAGE_NAME = 'niloofarkoochakianjazi/comp367-webapp:lab3'
@@ -31,14 +29,20 @@ pipeline {
 
         stage('Docker build') {
             steps {
-                sh 'docker build -t $IMAGE_NAME .'
+                sh 'docker build -t "$IMAGE_NAME" .'
             }
         }
 
         stage('Docker push') {
             steps {
-                sh 'docker push $IMAGE_NAME'
+                sh 'docker push "$IMAGE_NAME"'
             }
+        }
+    }
+
+    post {
+        always {
+            sh 'docker logout || true'
         }
     }
 }
